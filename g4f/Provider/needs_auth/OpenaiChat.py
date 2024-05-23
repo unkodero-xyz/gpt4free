@@ -330,6 +330,7 @@ class OpenaiChat(AsyncGeneratorProvider, ProviderModelMixin):
         image_name: str = None,
         return_conversation: bool = False,
         max_retries: int = 3,
+        har_file: str = None,
         **kwargs
     ) -> AsyncResult:
         """
@@ -367,7 +368,7 @@ class OpenaiChat(AsyncGeneratorProvider, ProviderModelMixin):
             arkose_token = None
             proofTokens = None
             try:
-                arkose_token, api_key, cookies, headers, proofTokens = await getArkoseAndAccessToken(proxy)
+                arkose_token, api_key, cookies, headers, proofTokens = await getArkoseAndAccessToken(proxy, har_file)
                 cls._create_request_args(cookies, headers)
                 cls._set_api_key(api_key)
             except NoValidHarFileError as e:
@@ -410,7 +411,7 @@ class OpenaiChat(AsyncGeneratorProvider, ProviderModelMixin):
                     chat_token = requirements["token"]        
 
                 if need_arkose and arkose_token is None:
-                    arkose_token, api_key, cookies, headers, proofTokens = await getArkoseAndAccessToken(proxy)
+                    arkose_token, api_key, cookies, headers, proofTokens = await getArkoseAndAccessToken(proxy, har_file)
                     cls._create_request_args(cookies, headers)
                     cls._set_api_key(api_key)
                     if arkose_token is None:

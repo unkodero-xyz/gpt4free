@@ -46,6 +46,7 @@ class ChatCompletionsForm(BaseModel):
     api_key: Optional[str] = None
     web_search: Optional[bool] = None
     proxy: Optional[str] = None
+    har_file: Optional[str] = None
 
 class ImagesGenerateForm(BaseModel):
     model: Optional[str] = None
@@ -54,6 +55,7 @@ class ImagesGenerateForm(BaseModel):
     response_format: Optional[str] = None
     api_key: Optional[str] = None
     proxy: Optional[str] = None
+    har_file: Optional[str] = None
 
 class AppConfig():
     list_ignored_providers: Optional[list[str]] = None

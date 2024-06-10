@@ -35,7 +35,7 @@ cookies: dict = None
 headers: dict = None
 proofTokens: list = []
 
-def readHAR():
+def readHAR(har_file: str):
     global proofTokens
     harPath = []
     chatArks = []
@@ -44,7 +44,8 @@ def readHAR():
     for root, dirs, files in os.walk(get_cookies_dir()):
         for file in files:
             if file.endswith(".har"):
-                harPath.append(os.path.join(root, file))
+                if har_file is None or file.startswith(har_file):
+                    harPath.append(os.path.join(root, file))
     if not harPath:
         raise NoValidHarFileError("No .har file found")
     for path in harPath:
@@ -141,10 +142,10 @@ def getN() -> str:
     timestamp = str(int(time.time()))
     return base64.b64encode(timestamp.encode()).decode()
 
-async def getArkoseAndAccessToken(proxy: str) -> tuple[str, str, dict, dict]:
+async def getArkoseAndAccessToken(proxy: str, har_file: str) -> tuple[str, str, dict, dict]:
     global chatArk, accessToken, cookies, headers, proofTokens
     if chatArk is None or accessToken is None:
-        chatArk, accessToken, cookies, headers = readHAR()
+        chatArk, accessToken, cookies, headers = readHAR(har_file)
     if chatArk is None:
         return None, accessToken, cookies, headers, proofTokens
     newReq = genArkReq(chatArk)

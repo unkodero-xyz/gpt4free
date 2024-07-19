@@ -170,7 +170,7 @@ gpt_4o = Model(
 )
 
 gpt_4o_mini = Model(
-    name          = 'gpt-4o',
+    name          = 'gpt-4o-mini',
     base_provider = 'openai',
     best_provider = OpenaiChat
 )

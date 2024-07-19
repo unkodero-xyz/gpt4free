@@ -169,6 +169,11 @@ gpt_4o = Model(
     ])
 )
 
+gpt_4o_mini = Model(
+    name          = 'gpt-4o',
+    base_provider = 'openai',
+    best_provider = OpenaiChat
+)
 
 ### GigaChat ###
 gigachat = Model(
@@ -405,6 +410,7 @@ class ModelUtils:
         'gpt-4-32k'      : gpt_4_32k,
         'gpt-4-32k-0613' : gpt_4_32k_0613,
         'gpt-4-turbo'    : gpt_4_turbo,
+        'gpt-4o-mini'    : gpt_4o_mini,
 		
 		
 		### Meta ###
